@@ -1,0 +1,23 @@
+services:
+  evacuation-review:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: evacuation-review:latest
+    container_name: evacuation-review
+    ports:
+      # 宿主机端口:容器端口；修改宿主机端口可设环境变量 HOST_PORT
+      - "${HOST_PORT:-4000}:4000"
+    environment:
+      # 容器内监听端口（一般无需修改）
+      PORT: 4000
+      DB_PATH: /app/server/data/evacuation.db
+      # 首次启动且数据库为空时写入示例方案；置为 false 可关闭
+      SEED_ON_EMPTY: "true"
+    volumes:
+      # SQLite 数据库持久化到命名卷
+      - evacuation-data:/app/server/data
+    restart: unless-stopped
+
+volumes:
+  evacuation-data:

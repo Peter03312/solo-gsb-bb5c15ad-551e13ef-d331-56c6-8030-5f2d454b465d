@@ -1,0 +1,12 @@
+**/node_modules
+**/dist
+**/build
+server/public
+server/data
+**/*.log
+.git
+.gitignore
+*.md
+docker-compose.yml
+Dockerfile
+.dockerignore
